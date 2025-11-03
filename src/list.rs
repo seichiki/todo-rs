@@ -51,8 +51,6 @@ impl TodoList {
         Ok(())
     }
 
-
-
     /// タスクを追加
     pub fn add(&mut self, todo: Todo) {
         self.todos.push(todo);
