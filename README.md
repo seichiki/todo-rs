@@ -21,7 +21,7 @@
 
 ```toml
 [dependencies]
-todo-rs = "https://github.com/seichiki/todo-rs"
+todo-rs = { git = "https://github.com/seichiki/todo-rs" }
 ```
 
 ### crates.io から（準備中）
