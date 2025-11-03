@@ -15,6 +15,19 @@
 
 ## インストール
 
+### GitHub から直接インストール
+
+現在は GitHub リポジトリから直接インストールできます：
+
+```toml
+[dependencies]
+todo-rs = "https://github.com/seichiki/todo-rs"
+```
+
+### crates.io から（準備中）
+
+将来的には crates.io に公開予定です：
+
 ```toml
 [dependencies]
 todo-rs = "0.1.0"
