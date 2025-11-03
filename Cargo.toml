@@ -1,7 +1,7 @@
 [package]
 name = "todo-rs"
-version = "0.1.0"
-edition = "2021"
+version = "0.2.0"
+edition = "2024"
 authors = ["seichiki"]
 description = "A Rust library for parsing and manipulating Todo.txt files"
 repository = "https://github.com/seichiki/todo-rs"
@@ -12,4 +12,4 @@ readme = "README.md"
 
 [dependencies]
 chrono = "0.4"
-thiserror = "1.0"
+thiserror = "2.0"

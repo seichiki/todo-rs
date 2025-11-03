@@ -18,35 +18,32 @@ pub fn parse_todo(line: &str) -> Result<Todo> {
         parts.next();
 
         // 完了日のパース
-        if let Some(&date_str) = parts.peek() {
-            if let Ok(date) = parse_date(date_str) {
-                todo.completion_date = Some(date);
-                parts.next();
-            }
+        if let Some(&date_str) = parts.peek()
+            && let Ok(date) = parse_date(date_str)
+        {
+            todo.completion_date = Some(date);
+            parts.next();
         }
     }
 
     // 優先度のパース（未完了の場合のみ）
-    if !todo.completed {
-        if let Some(&priority_str) = parts.peek() {
-            if priority_str.starts_with('(')
-                && priority_str.ends_with(')')
-                && priority_str.len() == 3
-            {
-                if let Ok(priority) = priority_str.parse::<Priority>() {
-                    todo.priority = Some(priority);
-                    parts.next();
-                }
-            }
-        }
+    if !todo.completed
+        && let Some(&priority_str) = parts.peek()
+        && priority_str.starts_with('(')
+        && priority_str.ends_with(')')
+        && priority_str.len() == 3
+        && let Ok(priority) = priority_str.parse::<Priority>()
+    {
+        todo.priority = Some(priority);
+        parts.next();
     }
 
     // 作成日のパース
-    if let Some(&date_str) = parts.peek() {
-        if let Ok(date) = parse_date(date_str) {
-            todo.creation_date = Some(date);
-            parts.next();
-        }
+    if let Some(&date_str) = parts.peek()
+        && let Ok(date) = parse_date(date_str)
+    {
+        todo.creation_date = Some(date);
+        parts.next();
     }
 
     // 残りの部分（説明、コンテキスト、プロジェクト、タグ）をパース
@@ -61,15 +58,14 @@ pub fn parse_todo(line: &str) -> Result<Todo> {
             todo.projects.push(part[1..].to_string());
         } else if part.contains(':') {
             // key:value タグ
-            if let Some((key, value)) = part.split_once(':') {
-                if !key.is_empty()
-                    && !value.is_empty()
-                    && !key.contains(char::is_whitespace)
-                    && !value.contains(char::is_whitespace)
-                {
-                    todo.tags.insert(key.to_string(), value.to_string());
-                    continue;
-                }
+            if let Some((key, value)) = part.split_once(':')
+                && !key.is_empty()
+                && !value.is_empty()
+                && !key.contains(char::is_whitespace)
+                && !value.contains(char::is_whitespace)
+            {
+                todo.tags.insert(key.to_string(), value.to_string());
+                continue;
             }
             // タグとして解釈できない場合は説明の一部として扱う
             description_parts.push(part);
